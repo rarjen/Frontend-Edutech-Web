@@ -18,8 +18,24 @@ export default function LibraryPage() {
           `https://alpha-omega-api-production.up.railway.app/api/alpha/v1/courses`
         );
 
-        const data = response.data.data.courses; // Mengambil data kursus dari properti "data" di respons API
-        setCourses(data);
+        const data = response.data.data.courses;
+
+        const coursesWithInstructors = await Promise.all(
+          data.map(async (course) => {
+            const instructorResponse = await axios.get(
+              `https://alpha-omega-api-production.up.railway.app/api/alpha/v1/instructor/${course.instructorId}`
+            );
+            const instructorData =
+              instructorResponse.data.data.userResponse.fullName;
+
+            return {
+              ...course,
+              instructor: instructorData,
+            };
+          })
+        );
+
+        setCourses(coursesWithInstructors);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
