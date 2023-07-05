@@ -17,8 +17,8 @@ const CardComponent = ({ product, onBuyClick }) => {
       </div>
       <Card.Body>
         <Card.Title>{product.title}</Card.Title>
-        <Card.Text>Harga: {product.price.display}</Card.Text>
-        <Card.Text>Nama Mentor: {product.instructorId}</Card.Text>
+        <Card.Text className="mb-3">{product.price.display}</Card.Text>
+        <Card.Text className="mb-3">Mentor: {product.instructor}</Card.Text>
         <Button
           variant="primary"
           className="w-100 btn btn-success"
