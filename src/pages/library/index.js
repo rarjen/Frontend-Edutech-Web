@@ -6,9 +6,14 @@ import PCarousel from "../../components/Carousel";
 import PCardComponent from "../../components/CardComponent";
 import PSquare from "../../components/SquareComponent";
 import PFooter from "../../components/Footer";
+import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
+// import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 export default function LibraryPage() {
+  // const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
@@ -44,8 +49,85 @@ export default function LibraryPage() {
     fetchData();
   }, []);
 
-  const handleBuyClick = (productId) => {
-    console.log("Pembelian produk dengan ID:", productId);
+  const handleWishlistClick = async (productId) => {
+    try {
+      const userId = auth.id;
+      const token = auth.token;
+      console.log("ini productId", productId);
+      console.log("ini userId", userId);
+      console.log("ini token", token);
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      let urlWishlist = `https://alpha-omega-api-production.up.railway.app/api/alpha/v1/wish-list/${userId}/course/${productId}`;
+
+      const response = await fetch(urlWishlist, {
+        method: "POST",
+        headers,
+      });
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      Swal.fire({
+        icon: "success",
+        title: "Produk berhasil ditambahkan ke wishlist",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+
+      // Tampilkan swal error
+      Swal.fire({
+        icon: "error",
+        title: "Terjadi kesalahan",
+        text: "Gagal menambahkan produk ke wishlist",
+      });
+    }
+  };
+
+  const handleBuyClick = async (productId) => {
+    try {
+      const userId = auth.id;
+      const token = auth.token;
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      let urlCart = `https://alpha-omega-api-production.up.railway.app/api/alpha/v1/cart/${userId}/course/${productId}`;
+
+      const response = await fetch(urlCart, {
+        method: "POST",
+        headers,
+      });
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      Swal.fire({
+        icon: "success",
+        title: "Produk berhasil ditambahkan ke cart",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.error("Error:", error);
+
+      // Tampilkan swal error
+      Swal.fire({
+        icon: "error",
+        title: "Terjadi kesalahan",
+        text: "Gagal menambahkan produk ke cart",
+      });
+    }
   };
 
   return (
@@ -72,7 +154,11 @@ export default function LibraryPage() {
         <Row>
           {courses.map((course) => (
             <Col key={course.id}>
-              <PCardComponent product={course} onBuyClick={handleBuyClick} />
+              <PCardComponent
+                product={course}
+                onBuyClick={handleBuyClick}
+                onWishlistClick={handleWishlistClick}
+              />
             </Col>
           ))}
         </Row>
