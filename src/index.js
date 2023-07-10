@@ -1,13 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      {/* Membungkus semua router/path ke dalam Provider, agar masing2 router dapat memakai masing" store global yang ada dalam redux */}
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 

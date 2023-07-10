@@ -1,0 +1,22 @@
+.content {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    box-shadow: 2px 1px 10px 2px rgba(84, 83, 83, 0.3);
+}
+
+.header p {
+    color: #737373;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+
+.loginForm a {
+    font-weight: 400;
+    font-size: 14px;
+    color: #737373;
+}
+
+.button-signIn {
+    width: 100%;
+}
