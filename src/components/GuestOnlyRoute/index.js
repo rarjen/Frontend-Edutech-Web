@@ -5,6 +5,6 @@ import { Navigate, Outlet } from "react-router-dom";
 export default function GuestOnlyRoute({ children }) {
   let { token } = useSelector((state) => state.auth);
 
-  if (token) return <Navigate to="/" replace={true} />;
+  if (token) return <Navigate to="/library" replace={true} />;
   return children || <Outlet />; // Harus ada outlet agar children bisa tampil
 }
