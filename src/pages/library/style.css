@@ -5,3 +5,27 @@
 body {
     height: 1000px;
 }
+
+.square-container {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 25px;
+}
+
+.logo-image {
+    width: 100px;
+    height: 100px;
+}
+
+.heading {
+    margin-bottom: 0;
+}
+
+.btn-primary {
+    margin-left: auto;
+}
+
+.custom-heading {
+    font-weight: bold;
+    color: #808080;
+}
