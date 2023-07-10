@@ -1,9 +1,15 @@
 import React from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Row, Col } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
-const CardComponent = ({ product, onBuyClick }) => {
+const CardComponent = ({ product, onBuyClick, onWishlistClick }) => {
   const handleBuyClick = () => {
     onBuyClick(product.id);
+  };
+
+  const handleWishlistClick = () => {
+    onWishlistClick(product.id);
   };
 
   return (
@@ -19,13 +25,28 @@ const CardComponent = ({ product, onBuyClick }) => {
         <Card.Title>{product.title}</Card.Title>
         <Card.Text className="mb-3">{product.price.display}</Card.Text>
         <Card.Text className="mb-3">Mentor: {product.instructor}</Card.Text>
-        <Button
-          variant="primary"
-          className="w-100 btn btn-success"
-          onClick={handleBuyClick}
-        >
-          Beli
-        </Button>
+        <Row>
+          <Col>
+            <Button
+              variant="btn btn-success"
+              className="px-5"
+              style={{ width: "100%" }}
+              onClick={handleBuyClick}
+            >
+              <FontAwesomeIcon icon={faShoppingCart} />
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              variant="outline-success"
+              className="px-5"
+              style={{ width: "100%" }}
+              onClick={handleWishlistClick}
+            >
+              <FontAwesomeIcon icon={faHeart} />
+            </Button>
+          </Col>
+        </Row>
       </Card.Body>
     </Card>
   );
