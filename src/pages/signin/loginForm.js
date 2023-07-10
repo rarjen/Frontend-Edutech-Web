@@ -64,7 +64,7 @@ export default function FormSignin({
       <div className="text-center my-1">
         <span>
           Don't have an account?{" "}
-          <NavLink to="/register" className={"text-decoration-none"}>
+          <NavLink to="/signup" className={"text-decoration-none"}>
             Sign up for free
           </NavLink>
         </span>
