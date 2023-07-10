@@ -5,16 +5,14 @@ import PAlert from "../../components/Alert";
 import PImage from "../../components/Image";
 import LForm from "./registerForm";
 import { postData } from "../../utils/fetch";
-import { useDispatch } from "react-redux";
-import { userLogin } from "../../redux/auth/actions";
 import "./style.css";
 
-function PageSignin() {
-  const dispatch = useDispatch();
+function PageSignup() {
   const navigate = useNavigate();
 
   // States
   const [form, setForm] = useState({
+    fullName: "",
     email: "",
     password: "",
   });
@@ -35,16 +33,12 @@ function PageSignin() {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const res = await postData(`/cms/auth/signin`, form);
+    const res = await postData(`/api/alpha/v1/auth/signup`, form);
 
     // Dispatch
     if (res?.data?.data) {
-      const token = res.data.data.token;
-      const role = res.data.data.role;
-      dispatch(userLogin(token, role));
-
       setIsLoading(false);
-      navigate("/");
+      navigate("/enter-otp");
     } else {
       setIsLoading(false);
       setAlert({
@@ -93,4 +87,4 @@ function PageSignin() {
   );
 }
 
-export default PageSignin;
+export default PageSignup;
