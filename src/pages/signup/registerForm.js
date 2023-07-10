@@ -14,25 +14,26 @@ export default function FormSignup({
   return (
     <Form>
       <TextInputWithLabel
+        label="Full Name"
+        name="fullName"
+        value={form.fullName}
+        type="text"
+        placeholder="Example: Joko Widodo"
+        onChange={handleChange}
+      />
+
+      <TextInputWithLabel
         label="Email address"
         name="email"
         value={form.email}
         type="email"
-        placeholder="Enter email"
+        placeholder="Example: nkri@gmail.com"
         onChange={handleChange}
       />
 
       <TextInputWithLabel
         label="Password"
         name="password"
-        value={form.password}
-        type="password"
-        placeholder="Password"
-        onChange={handleChange}
-      />
-      <TextInputWithLabel
-        label="Confirm Password"
-        name="confirmPassword"
         value={form.password}
         type="password"
         placeholder="Password"
