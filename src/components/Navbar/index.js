@@ -1,40 +1,42 @@
-import React, { useEffect, useState } from "react";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-// import NavLink from "../NavAccess";
-import { useNavigate, NavLink } from "react-router-dom";
-// import {
-//   accessCategories,
-//   accessTalents,
-//   accessEvents,
-//   accessParticipants,
-//   accessPayments,
-//   accessOrders,
-// } from "../../const/access";
+import React from "react";
+import { Container, Nav, Navbar, NavDropdown, Button } from "react-bootstrap";
+import { NavLink, useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function PNavbar() {
-  const navigate = useNavigate();
-  const [role, setRole] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchData = () => {
-  //     let { role } = localStorage.getItem("auth")
-  //       ? JSON.parse(localStorage.getItem("auth"))
-  //       : {};
-
-  //     setRole(role);
-  //   };
-  //   fetchData();
-  // }, []);
-
+  const location = useLocation();
   const handleLogout = () => {
-    localStorage.clear();
-    window.location.href = "/signin";
+    Swal.fire({
+      title: "Konfirmasi Logout",
+      text: "Apakah Anda yakin ingin logout?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, Logout",
+      cancelButtonText: "Batal",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear();
+        window.location.href = "/signin";
+      }
+    });
   };
 
+  const isLoggedIn = !!localStorage.getItem("auth");
+  const isLibrary = location.pathname !== "/my-learning/courses";
+
   return (
-    <Navbar bg="light" variant="light" className="navbar">
+    <Navbar
+      bg="light"
+      variant="light"
+      className="navbar"
+      style={{ position: "fixed", top: 0, left: 0, width: "100%", zIndex: 999 }}
+    >
       <Container>
-        <Navbar.Brand href="#home">Dashboard</Navbar.Brand>
+        <Navbar.Brand href="/library">
+          {isLibrary ? "Alpha & Omega" : "Library"}
+        </Navbar.Brand>
         <div className="col-2">
           <input
             className="form-control"
@@ -45,63 +47,92 @@ export default function PNavbar() {
         </div>
         <Nav className="me-auto">
           <NavDropdown title="KATEGORI" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.1">
+              Fullstack Developer
+            </NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">
-              Another action
+              Mobile Developer
             </NavDropdown.Item>
             <NavDropdown.Item>
               <NavLink to="/something" className={"text-decoration-none"}>
-                Something
+                DevOps
               </NavLink>
             </NavDropdown.Item>
           </NavDropdown>
 
           <NavDropdown title="TEKNOLOGI" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">
-              Another action
+            <NavDropdown.Item href="#action/3.1">
+              Java Springboot
+            </NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">NodeJS</NavDropdown.Item>
+            <NavDropdown.Item>
+              <NavLink to="/something" className={"text-decoration-none"}>
+                Laravel
+              </NavLink>
             </NavDropdown.Item>
             <NavDropdown.Item>
               <NavLink to="/something" className={"text-decoration-none"}>
-                Something
+                Flutter
               </NavLink>
             </NavDropdown.Item>
           </NavDropdown>
-
           <NavDropdown title="EXPLORE" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.1">GCP</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">AWS</NavDropdown.Item>
             <NavDropdown.Item>
               <NavLink to="/something" className={"text-decoration-none"}>
-                Something
+                Azure
               </NavLink>
+            </NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">
+              Cyber Security
             </NavDropdown.Item>
           </NavDropdown>
 
-          <NavDropdown title="PATNERSHIP" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
+          <NavDropdown title="PARTNERSHIP" id="basic-nav-dropdown">
+            <NavDropdown.Item href="#action/3.1">Google</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">Amazon</NavDropdown.Item>
             <NavDropdown.Item>
               <NavLink to="/something" className={"text-decoration-none"}>
-                Something
+                Microsoft
               </NavLink>
             </NavDropdown.Item>
           </NavDropdown>
-
-          {/* <NavLink
-            role={role}
-            roles={accessEvents.lihat}
-            action={() => navigate("/events")}
-          >
-            Events
-          </NavLink> */}
         </Nav>
         <Nav className="justify-content-end">
-          <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
+          {isLoggedIn ? (
+            <>
+              <Nav.Link>
+                <NavLink
+                  to="/my-learning/all-courses"
+                  className={"text-decoration-none"}
+                >
+                  <span
+                    style={{
+                      fontSize: "16px",
+                      color: "#808080",
+                    }}
+                  >
+                    {isLibrary ? "My Learning" : ""}
+                  </span>
+                </NavLink>
+              </Nav.Link>
+              <Nav.Link onClick={() => handleLogout()}>Logout</Nav.Link>
+            </>
+          ) : (
+            <>
+              <Nav.Link>
+                <Button variant="success" as={NavLink} to="/signin">
+                  Sign In
+                </Button>
+              </Nav.Link>
+              <Nav.Link>
+                <Button variant="outline-success" as={NavLink} to="/signup">
+                  Sign Up
+                </Button>
+              </Nav.Link>
+            </>
+          )}
         </Nav>
       </Container>
     </Navbar>
