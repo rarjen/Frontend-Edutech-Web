@@ -1,44 +1,54 @@
 import React from "react";
-import Carousel from "react-bootstrap/Carousel";
-// import second from './sliders'
+import { Carousel } from "react-bootstrap";
 
-function PCarousel() {
+export default function PCarousel() {
   return (
     <Carousel>
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://ik.imagekit.io/6v306xm58/pretty-smiling-joyfully-female-with-fair-hair-dressed-casually-looking-with-satisfaction.jpg?updatedAt=1681354087039"
+          src="https://ik.imagekit.io/6v306xm58/banner3.png?updatedAt=1688097049900"
           alt="First slide"
         />
-        <Carousel.Caption>
-          <h3>Study Like no Others</h3>
+        <Carousel.Caption style={{ textAlign: "left" }}>
+          <h2>Becoming a Fullstack Developer</h2>
+          <h6>
+            The Edutech platform bridges the gap between the education and the
+            professional world, and preparing young talents for the Industry
+            4.0.
+          </h6>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://ik.imagekit.io/6v306xm58/desola-lanre-ologun-IgUR1iX0mqM-unsplash.jpg?updatedAt=1681354069214"
+          src="https://ik.imagekit.io/6v306xm58/banner1.png?updatedAt=1688097047312"
           alt="Second slide"
         />
 
-        <Carousel.Caption>
-          <h3>Experienced Mentors</h3>
+        <Carousel.Caption style={{ textAlign: "left" }}>
+          <h2>Experienced Mentors</h2>
+          <h6>
+            Learning and being guided by experienced mentors who have been
+            working in the industry for decades.
+          </h6>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://ik.imagekit.io/6v306xm58/md-duran-1VqHRwxcCCw-unsplash.jpg?updatedAt=1681354064225"
+          src="https://ik.imagekit.io/6v306xm58/banner2.png?updatedAt=1688097044984"
           alt="Third slide"
         />
-
-        <Carousel.Caption>
-          <h3>Exclusive Learning Method</h3>
+        <Carousel.Caption style={{ textAlign: "left" }}>
+          <h2>Exclusive Learning Method</h2>
+          <h6>
+            With an intensive learning method, mentors assist participants in
+            identifying challenges and guiding them according to each
+            participant's learning style.
+          </h6>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
   );
 }
-
-export default PCarousel;
