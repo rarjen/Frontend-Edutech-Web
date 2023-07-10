@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import Library from "../pages/library";
+import Library from "../pages/library/index";
 
 export function LibraryRoute() {
   return (
