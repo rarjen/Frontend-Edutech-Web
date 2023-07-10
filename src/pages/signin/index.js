@@ -35,16 +35,16 @@ function PageSignin() {
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const res = await postData(`/cms/auth/signin`, form);
+    const res = await postData(`/api/alpha/v1/auth/signin`, form);
 
     // Dispatch
     if (res?.data?.data) {
-      const token = res.data.data.token;
-      const role = res.data.data.role;
-      dispatch(userLogin(token, role));
+      const token = res.data.data.jwtResponse.token;
+      const idUser = res.data.data.id;
+      dispatch(userLogin(token, idUser));
 
       setIsLoading(false);
-      navigate("/");
+      navigate("/library");
     } else {
       setIsLoading(false);
       setAlert({
